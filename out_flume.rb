@@ -69,8 +69,16 @@ module Fluent
     def send_data(client, chunk)
       count = 0
       chunk.msgpack_each {|(tag,time,record)|
+        body = ''
+        begin
+          body = record.to_json.to_s.force_encoding('UTF-8')
+        rescue
+          $log.error("Record is not utf8: #{record}")
+          next
+        end
+
         msg = {
-            'body' => record.to_json.to_s.force_encoding('UTF-8'),
+            'body' => body,
             'headers' => {
               'timestamp' => (time*1000).to_s,
               'hostname' => @localhost_name,
