@@ -57,7 +57,11 @@ module Fluent
         rescue
           error = $!
           $log.error "Got error for node '#{node.name}': #{error}, try reconnect"
-          node.connect()
+		begin
+                 node.connect()
+                rescue
+                 $log.error "Connecting to '#{node.host}' failed"
+                end
         end
       end
 
