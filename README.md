@@ -16,7 +16,7 @@ type flume
 </server>
 ```
 
-This plugin will add `host`, `hostname`, `tag` in message header.
+This plugin will do round robin amoung hosts, and will add `host`, `hostname`, `tag` in message header.
 
 ## flume configuration
 
