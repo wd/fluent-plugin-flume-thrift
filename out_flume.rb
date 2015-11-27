@@ -50,6 +50,7 @@ module Fluent
 
       error = nil
 
+      @nodes << @nodes.shift
       @nodes.each do |node|
         begin
           send_data(node.client, chunk)
